@@ -15,4 +15,6 @@ venv/
 # Ignore OS-specific files
 Thumbs.db
 .DS_Store
+
 *.pem
+/chroma_db

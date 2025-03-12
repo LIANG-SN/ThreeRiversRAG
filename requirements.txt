@@ -1,7 +1,13 @@
 beautifulsoup4==4.13.3
+langchain==0.3.20
+langchain_chroma==0.2.2
+langchain_community==0.3.19
+langchain_core==0.3.44
+langchain_huggingface==0.1.2
 pandas==2.2.3
 pdfplumber==0.11.5
 Requests==2.32.3
 selenium==4.29.0
 tqdm==4.67.1
+transformers==4.49.0
 webdriver_manager==4.0.2
