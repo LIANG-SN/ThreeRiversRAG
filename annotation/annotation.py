@@ -30,7 +30,8 @@ def main():
     input_prompts = INSTRUCTIONS + "\n\n" + "Document content: " + test_data
 
     with torch.no_grad():
-      result = pipe(input_prompts, max_new_tokens=512)
+        print("Generating questions...")
+        result = pipe(input_prompts, max_new_tokens=512)
 
     print(result[0]["generated_text"][1]["content"])
 
