@@ -13,7 +13,7 @@ def main():
     model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.1-8B", torch_dtype=torch.float16, device_map="auto")
 
     # Define the pipeline
-    pipe = pipeline('text-generation', model=model, tokenizer=tokenizer)
+    pipe = pipeline('text-generation', model=model, tokenizer=tokenizer, torch_dtype=torch.float16)
 
     intro_info = """You are a smart assistant designed to help come up with reading comprehension questions. You will be given a web-crawled document relevant to topics about Pittsburgh and Carnegie Mellon University (CMU) such as general information/history, events, music, sports, and culture."""
     task = """Based on the document, generate exactly 10 question and answer pairs covering different content topics."""
