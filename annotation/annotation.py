@@ -1,4 +1,5 @@
 import torch
+from sympy.physics.units import temperature
 
 # Use a pipeline as a high-level helper
 from transformers import pipeline
@@ -31,7 +32,7 @@ def main():
 
     with torch.no_grad():
         print("Generating questions...")
-        result = pipe(input_prompts, max_new_tokens=512)
+        result = pipe(input_prompts, max_new_tokens=512, temperature = 0.8, top_k = 50, top_p = 0.95)
 
     print(result[0]["generated_text"][1]["content"])
 
