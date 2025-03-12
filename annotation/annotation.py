@@ -10,6 +10,9 @@ def main():
     # Load model directly
 
     # Load the model and tokenizer to the GPU
+    gpu_properties = torch.cuda.get_device_properties(0)
+    total_memory_gb = gpu_properties.total_memory / (1024 ** 3)
+    print(f"Total GPU Memory: {total_memory_gb:.2f} GB")
     if torch.cuda.is_available():
         print("Using GPU")
     model_id = "Qwen/Qwen2-7B-Instruct"
