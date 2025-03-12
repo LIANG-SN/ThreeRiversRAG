@@ -18,3 +18,5 @@ Thumbs.db
 
 *.pem
 /chroma_db
+
+*.xml
