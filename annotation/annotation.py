@@ -10,8 +10,9 @@ def main():
     # Load model directly
 
     # Load the model and tokenizer to the GPU
-    tokenizer = AutoTokenizer.from_pretrained("meta-llama/Llama-3.1-8B")
-    model = AutoModelForCausalLM.from_pretrained("meta-llama/Llama-3.1-8B", torch_dtype=torch.float16, device_map="auto")
+    model_id = "Qwen/Qwen2-7B-Instruct"
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16, device_map="auto")
 
     # Define the pipeline
     pipe = pipeline('text-generation', model=model, tokenizer=tokenizer, torch_dtype=torch.float16)
