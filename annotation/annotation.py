@@ -13,7 +13,7 @@ def retreive_documents(file):
     dict_links = {}
     for index, row in file_links.iterrows():
         text_path = row['Source Data'].strip().replace(" ", "_") + ".txt"
-        text_path = "~/ThreeRiversRAG/data/annotation_data/main_source_link_data/" + text_path
+        text_path = "$HOME/ThreeRiversRAG/data/annotation_data/main_source_link_data/" + text_path
         dict_links[(row['Source Data'], row["Topic"])] = text_path
     return dict_links
 
@@ -54,7 +54,7 @@ def main():
     INSTRUCTIONS = " ".join(instruct_prompts)
 
     # Load the source links
-    soruce_links = "~/ThreeRiversRAG/data/annotation_data/main_source_link_data/source_data_links.csv"
+    soruce_links = "$HOME/ThreeRiversRAG/data/annotation_data/main_source_link_data/source_data_links.csv"
     dict_links = retreive_documents(soruce_links)
 
     topics_df = {}
