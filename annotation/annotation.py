@@ -86,10 +86,10 @@ def main():
             continue
         for q, a in questions:
             new_row = pd.DataFrame({"Questions": [q], "Answers": [a]})
-            topics_df[topic] = pd.concat([topics_df[topic], new_row], ignore_index=True)
+            topics_df[key[1]] = pd.concat([topics_df[key[1]], new_row], ignore_index=True)
     # Save the questions to a csv file
     try:
-        for key, value in topics_df.items():
+        for key, value in tqdm(topics_df.items(), desc="Saving files"):
             value.to_csv(f"/home/ubuntu/ThreeRiversRAG/data/annotation_data/annotation_qa/{key[1]}.csv", index=False)
     except:
         print("Failed to save the questions to a csv file")
