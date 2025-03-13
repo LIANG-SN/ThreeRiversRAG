@@ -61,8 +61,12 @@ def main():
     for key, value in tqdm(dict_links.items(), desc="Processing items"):
         if key[1] not in topics_df:
             topics_df[key[1]] = pd.DataFrame(columns=["Questions", "Answers"])
-        with open(value, "r") as file:
-            document = file.read()
+        try:
+            with open(value, "r") as file:
+                document = file.read()
+        except:
+            print("Failed to read/crawl the document", key[0])
+            continue
         input_prompts = INSTRUCTIONS + "\n\n" + "Document content: " + document
 
         messages = [
