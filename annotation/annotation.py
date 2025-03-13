@@ -4,6 +4,14 @@ from sympy.physics.units import temperature
 # Use a pipeline as a high-level helper
 from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForCausalLM
+import re
+
+def retreive_questions(text):
+    text = text.strip()
+    find_qa = re.compile(r"Q: (.*?) Ans: (.*?)\n")
+    questions = find_qa.findall(text)
+    print(type(questions))
+    return questions
 
 def main():
 
@@ -47,7 +55,9 @@ def main():
             model.to("cuda")
         result = pipe(messages, max_new_tokens=512, temperature = 0.8, top_k = 50, top_p = 0.95)
 
-    print(result[0]['generated_text'][1]["content"])
+    # print(result[0]['generated_text'][1]["content"])
+    questions = retreive_questions(result[0]['generated_text'][1]["content"])
+    print(questions)
 
 if __name__ == "__main__":
     main()
