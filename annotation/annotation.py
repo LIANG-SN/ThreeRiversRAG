@@ -60,7 +60,7 @@ def main():
     for key, value in tqdm(dict_links.items(), desc="Processing items"):
         if key[1] not in topics_df:
             topics_df[key[1]] = pd.DataFrame(columns=["Questions", "Answers"])
-        with open(value[0], "r") as file:
+        with open(value, "r") as file:
             document = file.read()
         input_prompts = INSTRUCTIONS + "\n\n" + "Document content: " + document
 
