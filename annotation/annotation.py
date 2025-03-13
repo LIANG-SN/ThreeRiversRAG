@@ -85,12 +85,12 @@ def main():
             print("Failed to retrieve questions", key[0])
             continue
         for q, a in questions:
-            topics_df[key[1]] = topics_df[key[1]].append({"Questions": q, "Answers": a}, ignore_index=True)
-
+            new_row = pd.DataFrame({"Questions": [q], "Answers": [a]})
+            topics_df[topic] = pd.concat([topics_df[topic], new_row], ignore_index=True)
     # Save the questions to a csv file
     try:
         for key, value in topics_df.items():
-            value.to_csv(f"~/ThreeRiversRAG/data/annotation_data/annotation_qa/{key[1]}.csv", index=False)
+            value.to_csv(f"/home/ubuntu/ThreeRiversRAG/data/annotation_data/annotation_qa/{key[1]}.csv", index=False)
     except:
         print("Failed to save the questions to a csv file")
 
