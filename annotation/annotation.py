@@ -34,7 +34,7 @@ def main():
     if torch.cuda.is_available():
         print("Using GPU")
     model_id = "Qwen/Qwen2-7B-Instruct"
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, truncation=True)
     model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16, device_map="auto")
 
     # Define the pipeline
