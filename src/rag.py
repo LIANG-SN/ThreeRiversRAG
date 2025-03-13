@@ -128,7 +128,7 @@ def main():
         os.environ['HF_HOME'] = args.hf_cache_dir
 
     # Load retrieval documents from the specified directory
-    loader = DirectoryLoader(args.retrieval_dir)
+    loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt")
     docs = loader.load()
 
     # Initialize embeddings using a pre-trained model
@@ -139,7 +139,7 @@ def main():
     retriever = vectorstore.as_retriever()
 
     # Initialize a Hugging Face pipeline for text generation using an open-source model.
-    pipe = pipeline("text2text-generation", model=args.generation_model_name, max_length=256, device_map="auto")
+    pipe = pipeline("text2text-generation", model=args.generation_model_name, max_length=256, device=device)
     llm = HuggingFacePipeline(pipeline=pipe)
 
     # Create the RAG system using RetrievalQA
