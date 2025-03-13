@@ -13,6 +13,7 @@ def retreive_documents(file):
     dict_links = {}
     for index, row in file_links.iterrows():
         text_path = row['Source Data'].strip().replace(" ", "_") + ".txt"
+        text_path = "~/ThreeRiversRAG/data/annotation_data/main_source_link_data/" + text_path
         dict_links[(row['Source Data'], row["Topic"])] = text_path
     return dict_links
 
