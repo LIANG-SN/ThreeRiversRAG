@@ -20,3 +20,8 @@ Thumbs.db
 /chroma_db
 
 *.xml
+
+# Ignore data
+data/annotation_data/
+data/crawled_data/
+data/raw_data/
