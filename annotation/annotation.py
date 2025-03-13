@@ -26,7 +26,7 @@ def retreive_questions(text):
     return questions
 
 def main():
-
+    max_length = 131072
     # Load the model and tokenizer to the GPU
     gpu_properties = torch.cuda.get_device_properties(0)
     total_memory_gb = gpu_properties.total_memory / (1024 ** 3)
@@ -34,7 +34,7 @@ def main():
     if torch.cuda.is_available():
         print("Using GPU")
     model_id = "Qwen/Qwen2-7B-Instruct"
-    tokenizer = AutoTokenizer.from_pretrained(model_id, truncation=True)
+    tokenizer = AutoTokenizer.from_pretrained(model_id, truncation=True, max_length=max_length)
     model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16, device_map="auto")
 
     # Define the pipeline
@@ -46,8 +46,7 @@ def main():
     answer_format = """For each pair, output in this exact format without any extra text:
         Q: "YOUR_QUESTION_HERE", Ans: "YOUR_ANSWER_HERE"."""
     ans_req = """Do not include any introductory text, commentary, or explanations. The final output must contain only 10 Q/A pairs, nothing else. Each answer must be extremely succinct (only key words or phrases) and should not repeat the question."""
-    examples = """Examples:
-        Q: When was Carnegie Mellon University founded, Ans: 1900"""
+    examples = """Examples: Q: When was Carnegie Mellon University founded, Ans: 1900\nQ:When does Kara Walker exhibition open?, Ans: March 1"""
     additional_info = """Example question and answer pairs are just sample, you need to generate your own questions based on the document content."""
 
     instruct_prompts = [intro_info, task, requirement, ans_req, answer_format, examples, additional_info]
@@ -59,13 +58,14 @@ def main():
 
     topics_df = {}
     for key, value in tqdm(dict_links.items(), desc="Processing items"):
-        if key[1] not in topics_df:
-            topics_df[key[1]] = pd.DataFrame(columns=["Questions", "Answers"])
+        SOURCE, TOPIC = key
+        if TOPIC not in topics_df:
+            topics_df[TOPIC] = pd.DataFrame(columns=["Questions", "Answers"])
         try:
             with open(value, "r") as file:
                 document = file.read()
         except:
-            print("Failed to read/crawl the document", key[0])
+            print("Failed to read/crawl the document", SOURCE)
             continue
         input_prompts = INSTRUCTIONS + "\n\n" + "Document content: " + document
 
@@ -78,25 +78,25 @@ def main():
                 print("Using GPU for inference...")
                 model.to("cuda")
             try:
-                result = pipe(messages, max_new_tokens=512, temperature = 0.8, top_k = 50, top_p = 0.95)
+                result = pipe(messages, max_new_tokens=512, temperature = 1, top_k = 50, top_p = 0.95)
             except:
-                print("Generation failed", key[0])
+                print("Generation failed", SOURCE)
                 continue
 
         try:
             questions = retreive_questions(result[0]['generated_text'][1]["content"])
         except:
-            print("Failed to retrieve questions", key[0])
+            print("Failed to retrieve questions", SOURCE)
             continue
-        print("Questions generated successfully..........")
+        print("Questions generated successfully:", SOURCE, len(questions))
         for q, a in questions:
             new_row = pd.DataFrame({"Questions": [q], "Answers": [a]})
-            topics_df[key[1]] = pd.concat([topics_df[key[1]], new_row], ignore_index=True)
+            topics_df[TOPIC] = pd.concat([topics_df[TOPIC], new_row], ignore_index=True)
         print("QA stored successfully..........")
     # Save the questions to a csv file
     try:
         for key, value in tqdm(topics_df.items(), desc="Saving files"):
-            value.to_csv(f"/home/ubuntu/ThreeRiversRAG/data/annotation_data/annotation_qa/{key[1]}.csv", index=False)
+            value.to_csv(f"/home/ubuntu/ThreeRiversRAG/data/annotation_data/annotation_qa/{key}.csv", index=False)
     except:
         print("Failed to save the questions to a csv file")
 
