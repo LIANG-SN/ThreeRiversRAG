@@ -60,7 +60,7 @@ def main():
     for key, value in tqdm(dict_links.items(), desc="Processing items"):
         SOURCE, TOPIC = key
         if TOPIC not in topics_df:
-            topics_df[TOPIC] = pd.DataFrame(columns=["Questions", "Answers"])
+            topics_df[TOPIC] = pd.DataFrame(columns=["Questions", "Answers", "Source"])
         try:
             with open(value, "r") as file:
                 document = file.read()
@@ -95,7 +95,7 @@ def main():
             with open("failed_annotations.txt", "a") as file:
                 file.write(f"{SOURCE}:\n" + result[0]['generated_text'][1]["content"] + "\n\n")
         for q, a in questions:
-            new_row = pd.DataFrame({"Questions": [q], "Answers": [a]})
+            new_row = pd.DataFrame({"Questions": [q], "Answers": [a], "Source": [SOURCE]})
             topics_df[TOPIC] = pd.concat([topics_df[TOPIC], new_row], ignore_index=True)
         print("QA stored successfully..........")
     # Save the questions to a csv file
