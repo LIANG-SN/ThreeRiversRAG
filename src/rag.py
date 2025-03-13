@@ -1,6 +1,7 @@
 # Import necessary modules from LangChain and transformers
 import argparse
 import os
+import torch
 from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
@@ -23,6 +24,10 @@ def arg_parser():
                         default="../data/rag_dummy_data/answers.txt")
     parser.add_argument('--batch_size', type=int, default=8,
                         help="Batch size for inference")
+    parser.add_argument("--generation_model_name", type=str,
+                        default="google/flan-t5-base")
+    parser.add_argument("--embedder_model_name", type=str,
+                        default="sentence-transformers/all-mpnet-base-v2")
     
     return parser.parse_args()
 
@@ -114,6 +119,8 @@ def batch_inference(qa_chain, questions, batch_size, ground_truths=None):
 
 def main():
     args = arg_parser()
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    print(f"Using device {device}")
     
     # Set HuggingFace cache directory if provided
     if args.hf_cache_dir:
@@ -125,14 +132,14 @@ def main():
     docs = loader.load()
 
     # Initialize embeddings using a pre-trained model
-    embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
+    embeddings = HuggingFaceEmbeddings(model_name=args.embedder_model_name, model_kwargs={"device": device})
 
     # Build a Chroma vector store from the documents and embeddings.
     vectorstore = Chroma.from_documents(docs, embeddings, persist_directory="./chroma_db")
     retriever = vectorstore.as_retriever()
 
     # Initialize a Hugging Face pipeline for text generation using an open-source model.
-    pipe = pipeline("text2text-generation", model="google/flan-t5-base", max_length=256)
+    pipe = pipeline("text2text-generation", model=args.generation_model_name, max_length=256, device_map="auto")
     llm = HuggingFacePipeline(pipeline=pipe)
 
     # Create the RAG system using RetrievalQA
