@@ -5,7 +5,7 @@ import pandas as pd
 from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import re
-import tqdm
+from tqdm import tqdm
 
 def retreive_documents(file):
     # Load the source link csv file
