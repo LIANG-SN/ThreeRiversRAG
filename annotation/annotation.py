@@ -20,7 +20,7 @@ def retreive_documents(file):
 
 def retreive_questions(text):
     text = text.strip()
-    find_qa = re.compile(r"Q: (.*?) Ans: (.*?)\n")
+    find_qa = re.compile(r"Q:\s*(.*?)\s*Ans:\s*(.*?)(?:\n|$)")
     questions = find_qa.findall(text)
     # print(type(questions))
     return questions
