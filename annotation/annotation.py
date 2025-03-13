@@ -37,7 +37,7 @@ def main():
     input_prompts = INSTRUCTIONS + "\n\n" + "Document content: " + test_data
 
     messages = [
-        {"role": "user", "content": formatted_input},
+        {"role": "user", "content": input_prompts},
     ]
     with torch.no_grad():
         print("Generating questions...")
