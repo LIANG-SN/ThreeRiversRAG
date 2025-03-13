@@ -84,9 +84,11 @@ def main():
         except:
             print("Failed to retrieve questions", key[0])
             continue
+        print("Questions generated successfully..........")
         for q, a in questions:
             new_row = pd.DataFrame({"Questions": [q], "Answers": [a]})
             topics_df[key[1]] = pd.concat([topics_df[key[1]], new_row], ignore_index=True)
+        print("QA stored successfully..........")
     # Save the questions to a csv file
     try:
         for key, value in tqdm(topics_df.items(), desc="Saving files"):
