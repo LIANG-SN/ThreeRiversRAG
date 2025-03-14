@@ -41,15 +41,17 @@ def main():
     pipe = pipeline('text-generation', model=model, tokenizer=tokenizer, torch_dtype=torch.float16)
 
     intro_info = """You are a smart assistant designed to help come up with reading comprehension questions. You will be given a web-crawled document relevant to topics about Pittsburgh and Carnegie Mellon University (CMU) such as general information/history, events, music, sports, and culture."""
-    task = """Based on the document, generate 5~10 question and answer pairs covering different content topics."""
+    task = """Based on the document, generate 10 question and answer pairs that cover diverse topics and aspects from the content."""
     requirement = """Each question must be independently answerable and the answers must be directly and exactly found in the document."""
+    additional_req = """Questions must be specific and focused. They should cover a range of aspects such as specific events, people, dates, locations, and other relevant details. Avoid broad or vague inquiries; for example, instead of asking 'What is the information about the event?', ask a question that clearly targets a particular detail within the event description."""
     answer_format = """For each pair, output in this exact format without any extra text:
         Q: "YOUR_QUESTION_HERE", Ans: "YOUR_ANSWER_HERE"."""
     ans_req = """Do not include any introductory text, commentary, or explanations. The final output must contain only 10 Q/A pairs, nothing else. Each answer must be extremely succinct (only key words or phrases) and should not repeat the question."""
     examples = """Examples: Q: When was Carnegie Mellon University founded, Ans: 1900\nQ:When does Kara Walker exhibition open?, Ans: March 1"""
-    additional_info = """Example question and answer pairs are just sample, you need to generate your own questions based on the document content."""
+    additional_info = """The example pairs are for illustration only; you must generate original Q/A pairs based solely on the document content."""
 
-    instruct_prompts = [intro_info, task, requirement, ans_req, answer_format, examples, additional_info]
+
+    instruct_prompts = [intro_info, task, requirement, additional_req, ans_req, answer_format, examples, additional_info]
     INSTRUCTIONS = " ".join(instruct_prompts)
 
     # Load the source links
