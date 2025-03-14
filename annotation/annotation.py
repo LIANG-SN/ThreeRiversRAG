@@ -43,15 +43,18 @@ def main():
     intro_info = """You are a smart assistant designed to help come up with reading comprehension questions. You will be given a web-crawled document relevant to topics about Pittsburgh and Carnegie Mellon University (CMU) such as general information/history, events, music, sports, and culture."""
     task = """Based on the document, generate 10 question and answer pairs that cover diverse topics and aspects from the content."""
     requirement = """Each question must be independently answerable and the answers must be directly and exactly found in the document."""
-    additional_req = """Questions must be specific and focused. They should cover a range of aspects such as specific events, people, dates, locations, and other relevant details. Avoid broad or vague inquiries; for example, instead of asking 'What is the information about the event?', ask a question that clearly targets a particular detail within the event description."""
+    additional_req = """Questions must be specific and focused. They should cover a range of aspects such as specific events, people, dates, locations, and other relevant details."""
+    question_restriction = """Avoid broad, vague, open-ended questions that would result in long, narrative answers. For example, instead of asking 'What can you tell me about the event?', ask a question that targets a particular detail of the event."""
+    ans_req = """Do not include any introductory text, commentary, or explanations. The final output must contain only 10 Q/A pairs, nothing else. """
+    additional_ans_req = """Each answer must be extremely succinct—limited to just several keywords—and should not repeat the question."""
+    yes_or_no_req = """If a question is a yes or no question, the answer must be exactly 'yes' or 'no' without any additional information."""
     answer_format = """For each pair, output in this exact format without any extra text:
-        Q: "YOUR_QUESTION_HERE", Ans: "YOUR_ANSWER_HERE"."""
-    ans_req = """Do not include any introductory text, commentary, or explanations. The final output must contain only 10 Q/A pairs, nothing else. Each answer must be extremely succinct (only key words or phrases) and should not repeat the question."""
-    examples = """Examples: Q: When was Carnegie Mellon University founded, Ans: 1900\nQ:When does Kara Walker exhibition open?, Ans: March 1"""
+                Q: "YOUR_QUESTION_HERE", Ans: "YOUR_ANSWER_HERE"."""
+    examples = """Examples: Q: When was Carnegie Mellon University founded, Ans: 1900\nQ:When does Kara Walker exhibition open?, Ans: March 1\nQ: "Is the event held indoors?", Ans: "yes"."""
     additional_info = """The example pairs are for illustration only; you must generate original Q/A pairs based solely on the document content."""
 
 
-    instruct_prompts = [intro_info, task, requirement, additional_req, ans_req, answer_format, examples, additional_info]
+    instruct_prompts = [intro_info, task, requirement, additional_req, question_restriction, ans_req, additional_ans_req, yes_or_no_req, answer_format, examples, additional_info]
     INSTRUCTIONS = " ".join(instruct_prompts)
 
     # Load the source links
@@ -93,7 +96,7 @@ def main():
 
         # TODO: Figure out why some annotations cannot retrieve questions??? len(questions) == 0????
         print("Questions generated successfully:", SOURCE, len(questions))
-        if len(questions) == 0:
+        if len(questions) < 10:
             with open("failed_annotations.txt", "a") as file:
                 file.write(f"{SOURCE}:\n" + result[0]['generated_text'][1]["content"] + "\n\n")
         for q, a in questions:
