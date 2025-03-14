@@ -1,0 +1,1 @@
+python rag.py --retrieval_dir /home/ubuntu/ThreeRiversRAG/data/data_all/data/sample_data_crawled_static_web_data
