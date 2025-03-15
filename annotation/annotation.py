@@ -99,7 +99,7 @@ def main():
         # TODO: Figure out why some annotations cannot retrieve questions??? len(questions) == 0????
         print("Questions generated successfully:", SOURCE, len(questions))
         if len(questions) < 5:
-            with open("failed_annotations.txt", "w") as file:
+            with open("failed_annotations.txt", "a") as file:
                 file.write(f"{SOURCE}:\n" + result[0]['generated_text'][1]["content"] + "\n\n")
         for q, a in questions:
             new_row = pd.DataFrame({"Questions": [q], "Answers": [a], "Source": [SOURCE], "Source_Index": [SOURCE_INDEX]})
