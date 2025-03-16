@@ -14,7 +14,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM
 from langchain_community.document_loaders import DirectoryLoader
 from langchain_community.document_loaders import TextLoader
-
+from langchain import PromptTemplate
 
 def arg_parser():
     parser = argparse.ArgumentParser(description="ThreeRiversRAG")
@@ -55,8 +55,8 @@ def calculate_metrics(predictions, ground_truths):
     total_precision = 0.0
 
     for pred, gt in zip(predictions, ground_truths):
-        # pred = remove_punctuation(pred.lower())
-        # gt = remove_punctuation(gt.lower())
+        pred = remove_punctuation(pred.lower())
+        gt = remove_punctuation(gt.lower())
         pred = pred.lower()
         gt = gt.lower()
         # Count exact matches
@@ -108,7 +108,7 @@ def extract_answer(answer):
         return "Extract failed"
 
 def remove_punctuation(sentence):
-    if sentence[-1] == ".":
+    if sentence and sentence[-1] == ".":
         return sentence[:-1]
     else:
         return sentence
@@ -118,10 +118,6 @@ def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
     Processes the list of questions in batches and returns accumulated predictions.
     If ground_truths are provided, computes and prints metrics for each batch.
     """
-    # Define your custom instruction prompt
-    ans_req = """Answer the question based only on the provided context in just one sentence. The answer ideally should be directly extract from the context without paraphrasing.  Answer must be extremely succinct—limited to just several keywords—and should not repeat the question."""
-    yes_or_no_req = """If a question is a yes or no question, the answer must be exactly 'yes' or 'no' without any additional information, and do not include punctuation."""
-    instruction_prompt = " ".join([ans_req, yes_or_no_req])
     
     predictions = []
     num_batches = (len(questions) + batch_size - 1) // batch_size
@@ -134,13 +130,13 @@ def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
             if batch_size > 1:
                 batch_outputs = qa_chain.batch(batch_inputs)
             else:
-                if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct"}:
-                    question = batch[0]
-                    final_prompt = f"query: {instruction_prompt}\nQuestion: {question}"
-                    batch_outputs = [qa_chain.invoke(final_prompt)]
-                else:
-                    # small model, no prompt
-                    batch_outputs = [qa_chain.invoke(batch[0])]
+                # if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct"}:
+                #     question = batch[0]
+                #     final_prompt = f"query: {instruction_prompt}\nQuestion: {question}"
+                #     batch_outputs = [qa_chain.invoke(final_prompt)]
+                # else:
+                #     # small model, no prompt
+                batch_outputs = [qa_chain.invoke(batch[0])]
         torch.cuda.empty_cache()
         gc.collect()
         
@@ -215,7 +211,23 @@ def main():
     llm = HuggingFacePipeline(pipeline=pipe)
 
     # Create the RAG system using RetrievalQA
-    qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever)
+    # Define your custom instruction prompt
+    ans_req = """Answer the question based only on the provided context in just one sentence. Each answer must be as concise as possible, extremely succinct—limited to just several keywords—and should not repeat the question."""
+    yes_or_no_req = """If a question is a yes or no question, the answer must be exactly 'yes' or 'no' without any additional information and without punctuation"""
+    instruction_prompt = " ".join([ans_req, yes_or_no_req])
+
+    template = (
+        f"{instruction_prompt}\n"
+        "Context: {context}\n"
+        "Question: {question}\n"
+        "Helpful Answer:"
+    )
+
+    prompt_template = PromptTemplate(
+        input_variables=["context", "question"],
+        template=template
+    )
+    qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, chain_type_kwargs={"prompt": prompt_template})
 
     if args.annotation_data_format == "csv":
         # load questions and answers
