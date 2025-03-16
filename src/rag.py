@@ -11,8 +11,9 @@ from langchain_huggingface import HuggingFacePipeline
 from langchain.chains import RetrievalQA
 from langchain.chains import create_retrieval_chain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM
+from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM
 from langchain_community.document_loaders import DirectoryLoader
+from langchain_community.document_loaders import TextLoader
 
 
 def arg_parser():
@@ -54,6 +55,10 @@ def calculate_metrics(predictions, ground_truths):
     total_precision = 0.0
 
     for pred, gt in zip(predictions, ground_truths):
+        # pred = remove_punctuation(pred.lower())
+        # gt = remove_punctuation(gt.lower())
+        pred = pred.lower()
+        gt = gt.lower()
         # Count exact matches
         if pred == gt:
             exact_match_count += 1
@@ -90,11 +95,34 @@ def calculate_metrics(predictions, ground_truths):
         "total_precision": total_precision
     }
 
-def batch_inference(qa_chain, questions, batch_size, ground_truths=None):
+def extract_answer(answer):
+    import re
+
+    # Use a regex pattern to capture everything after "Helpful Answer:" until the end of the text
+    match = re.search(r"(?i)Helpful Answer:\s*(.*)", answer, re.DOTALL)
+    if match:
+        answer_part = match.group(1).strip()
+        answer_part = answer_part.split("\n")[0]
+        return answer_part
+    else:
+        return "Extract failed"
+
+def remove_punctuation(sentence):
+    if sentence[-1] == ".":
+        return sentence[:-1]
+    else:
+        return sentence
+
+def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
     """
     Processes the list of questions in batches and returns accumulated predictions.
     If ground_truths are provided, computes and prints metrics for each batch.
     """
+    # Define your custom instruction prompt
+    ans_req = """Answer the question based only on the provided context in just one sentence. The answer ideally should be directly extract from the context without paraphrasing.  Answer must be extremely succinct—limited to just several keywords—and should not repeat the question."""
+    yes_or_no_req = """If a question is a yes or no question, the answer must be exactly 'yes' or 'no' without any additional information, and do not include punctuation."""
+    instruction_prompt = " ".join([ans_req, yes_or_no_req])
+    
     predictions = []
     num_batches = (len(questions) + batch_size - 1) // batch_size
 
@@ -106,7 +134,13 @@ def batch_inference(qa_chain, questions, batch_size, ground_truths=None):
             if batch_size > 1:
                 batch_outputs = qa_chain.batch(batch_inputs)
             else:
-                batch_outputs = [qa_chain.invoke(batch_inputs[0])]
+                if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct"}:
+                    question = batch[0]
+                    final_prompt = f"query: {instruction_prompt}\nQuestion: {question}"
+                    batch_outputs = [qa_chain.invoke(final_prompt)]
+                else:
+                    # small model, no prompt
+                    batch_outputs = [qa_chain.invoke(batch[0])]
         torch.cuda.empty_cache()
         gc.collect()
         
@@ -117,6 +151,8 @@ def batch_inference(qa_chain, questions, batch_size, ground_truths=None):
                 answer = output.get("result", output)
             else:
                 answer = output
+            if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct"}:
+                answer = extract_answer(answer)
             batch_predictions.append(answer)
         
         predictions.extend(batch_predictions)
@@ -128,6 +164,11 @@ def batch_inference(qa_chain, questions, batch_size, ground_truths=None):
             print(f"Batch {i//batch_size + 1}/{num_batches} Metrics:")
             for key, value in batch_metrics.items():
                 print(f"  {key}: {value}")
+        
+        if batch_size == 1:
+            print(f"Question: {batch[0]}")
+            print(f"Answer: {batch_predictions[0]}")
+            print(f"Ground Truth: {batch_ground_truths[0]}")
             print("-" * 40)
             
     return predictions
@@ -143,9 +184,10 @@ def main():
         os.environ['HF_HOME'] = args.hf_cache_dir
 
     # Load retrieval documents from the specified directory
-    loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt")
+    text_loader_kwargs={'autodetect_encoding': True}
+    loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs=text_loader_kwargs, show_progress=True, use_multithreading=True)
     docs = loader.load()
-    splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=0)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
     splitted_docs = splitter.split_documents(docs)
     print(f"Retrieval documents loaded.")
 
@@ -153,16 +195,23 @@ def main():
     embeddings = HuggingFaceEmbeddings(model_name=args.embedder_model_name, model_kwargs={"device": device})
 
     # Build a Chroma vector store from the documents and embeddings.
-    vectorstore = Chroma.from_documents(splitted_docs, embeddings, persist_directory="./chroma_db")
+    # vectorstore = Chroma.from_documents(splitted_docs, embeddings, persist_directory="./chroma_db")
+    # vectorstore.persist()
+    vectorstore = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
     retriever = vectorstore.as_retriever(search_kwargs={"k": args.topk})
     print(f"Vector Store finish.")
 
     # Initialize a Hugging Face pipeline for text generation using an open-source model.
     tokenizer = AutoTokenizer.from_pretrained(args.generation_model_name)
-    model = AutoModelForSeq2SeqLM.from_pretrained(args.generation_model_name, device_map="auto")
-    model.config.use_cache = False
-    model.eval()
-    pipe = pipeline("text2text-generation", model=model, tokenizer=tokenizer, max_length=256)
+    if args.generation_model_name == "Qwen/Qwen2-7B-Instruct":
+        model = AutoModelForCausalLM.from_pretrained(args.generation_model_name, torch_dtype=torch.float16, device_map="auto")
+        model.eval()
+        pipe = pipeline('text-generation', model=model, tokenizer=tokenizer, torch_dtype=torch.float16)
+    else:
+        model = AutoModelForSeq2SeqLM.from_pretrained(args.generation_model_name, device_map="auto")
+        # model.config.use_cache = False
+        model.eval()
+        pipe = pipeline("text2text-generation", model=model, tokenizer=tokenizer, max_length=256)
     llm = HuggingFacePipeline(pipeline=pipe)
 
     # Create the RAG system using RetrievalQA
@@ -171,6 +220,8 @@ def main():
     if args.annotation_data_format == "csv":
         # load questions and answers
         df = pd.read_csv(args.annotation_csv)
+        if len(df) > 2500:
+            df = df.sample(n=2500, replace=False, random_state=42)
         questions = df['Questions'].tolist()
         ground_truths = df['Answers'].tolist()
 
@@ -189,7 +240,7 @@ def main():
     
 
     # Perform batch inference with customizable batch size
-    predictions = batch_inference(qa_chain, questions, args.batch_size, ground_truths if ground_truths else None)
+    predictions = batch_inference(qa_chain, questions, args.batch_size, args, ground_truths if ground_truths else None)
     print("Batch inference complete.\n")
 
     # Add the predictions as a new column in the DataFrame
