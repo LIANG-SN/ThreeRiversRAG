@@ -4,12 +4,11 @@ import os
 import torch
 import gc
 import pandas as pd
-from langchain_core.documents import Document
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
+from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFacePipeline
-from langchain.chains import RetrievalQA
-from langchain.chains import create_retrieval_chain
+from langchain.chains import RetrievalQA, LLMChain
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, AutoModelForCausalLM
 from langchain_community.document_loaders import DirectoryLoader
@@ -39,6 +38,12 @@ def arg_parser():
     parser.add_argument("--output_path", type=str,
                         default="../data/output/output.csv")
     parser.add_argument("--topk", type=int, default=3)
+    parser.add_argument("--db_path", type=str, default=None)
+    parser.add_argument("--baseline", action="store_true", default=False)
+    parser.add_argument("--no_prompt", action="store_true", default=False)
+    parser.add_argument("--fewshot", action="store_true", default=False)
+    parser.add_argument("--vectorstore_type", type=str, default="chroma", choices=["chroma", "faiss"],
+                        help="Which vector store to use: chroma (default) or faiss.")
     return parser.parse_args()
 
 def calculate_metrics(predictions, ground_truths):
@@ -55,6 +60,7 @@ def calculate_metrics(predictions, ground_truths):
     total_precision = 0.0
 
     for pred, gt in zip(predictions, ground_truths):
+        gt = str(gt)
         pred = remove_punctuation(pred.lower())
         gt = remove_punctuation(gt.lower())
         pred = pred.lower()
@@ -130,12 +136,6 @@ def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
             if batch_size > 1:
                 batch_outputs = qa_chain.batch(batch_inputs)
             else:
-                # if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct"}:
-                #     question = batch[0]
-                #     final_prompt = f"query: {instruction_prompt}\nQuestion: {question}"
-                #     batch_outputs = [qa_chain.invoke(final_prompt)]
-                # else:
-                #     # small model, no prompt
                 batch_outputs = [qa_chain.invoke(batch[0])]
         torch.cuda.empty_cache()
         gc.collect()
@@ -144,7 +144,10 @@ def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
         for output in batch_outputs:
             # Handle different output formats (dict or string)
             if isinstance(output, dict):
-                answer = output.get("result", output)
+                if args.baseline:
+                    answer = output.get("text", output)
+                else:
+                    answer = output.get("result", output)
             else:
                 answer = output
             if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct"}:
@@ -179,21 +182,37 @@ def main():
         print(f"Setting HF cache directory to {args.hf_cache_dir}")
         os.environ['HF_HOME'] = args.hf_cache_dir
 
-    # Load retrieval documents from the specified directory
-    text_loader_kwargs={'autodetect_encoding': True}
-    loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs=text_loader_kwargs, show_progress=True, use_multithreading=True)
-    docs = loader.load()
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=100)
-    splitted_docs = splitter.split_documents(docs)
-    print(f"Retrieval documents loaded.")
+    if not args.db_path:
+        # Load retrieval documents from the specified directory
+        text_loader_kwargs={'autodetect_encoding': True}
+        loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs=text_loader_kwargs, show_progress=True, use_multithreading=True)
+        docs = loader.load()
+        chunk_size = 500
+        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=100)
+        splitted_docs = splitter.split_documents(docs)
+        print(f"Retrieval documents loaded.")
 
     # Initialize embeddings using a pre-trained model
     embeddings = HuggingFaceEmbeddings(model_name=args.embedder_model_name, model_kwargs={"device": device})
 
-    # Build a Chroma vector store from the documents and embeddings.
-    # vectorstore = Chroma.from_documents(splitted_docs, embeddings, persist_directory="./chroma_db")
-    # vectorstore.persist()
-    vectorstore = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
+    # Build a vector store from the documents and embeddings.
+    if args.vectorstore_type == "faiss":
+        print("Building FAISS vector store...")
+        if not args.db_path:
+            vectorstore = FAISS.from_documents(splitted_docs, embeddings)
+            vectorstore.save_local("faiss_index")
+        else:
+            vectorstore = FAISS.load_local(
+                args.db_path, embeddings, allow_dangerous_deserialization=True
+            )
+    else:
+        if not args.db_path:
+            print(f"Building Chroma vector store...")
+            emb = args.embedder_model_name.split("/")[-1]
+            vectorstore = Chroma.from_documents(splitted_docs, embeddings, persist_directory=f"./chroma_db_chunk{chunk_size}_emb{emb}")
+        else:
+            print(f"Loading Chroma vectorstore")
+            vectorstore = Chroma(persist_directory=args.db_path, embedding_function=embeddings)
     retriever = vectorstore.as_retriever(search_kwargs={"k": args.topk})
     print(f"Vector Store finish.")
 
@@ -214,20 +233,57 @@ def main():
     # Define your custom instruction prompt
     ans_req = """Answer the question based only on the provided context in just one sentence. Each answer must be as concise as possible, extremely succinct—limited to just several keywords—and should not repeat the question."""
     yes_or_no_req = """If a question is a yes or no question, the answer must be exactly 'yes' or 'no' without any additional information and without punctuation"""
-    instruction_prompt = " ".join([ans_req, yes_or_no_req])
+    if args.no_prompt:
+        instruction_prompt = ""
+    else:  
+        instruction_prompt = " ".join([ans_req, yes_or_no_req])
 
-    template = (
-        f"{instruction_prompt}\n"
-        "Context: {context}\n"
-        "Question: {question}\n"
-        "Helpful Answer:"
-    )
+    
+    if args.baseline:
+        template = (
+            f"{instruction_prompt}\n"
+            "Question: {question}\n"
+            "Helpful Answer:"
+        )
+        prompt_template = PromptTemplate(
+            input_variables=["question"],
+            template=template
+        )
+        qa_chain = LLMChain(prompt=prompt_template, llm=llm)
+    else:
+        if args.fewshot:
+            # Define a string with few-shot examples
+            few_shot_examples = (
+                "Example 1:\n"
+                "Context: Carnegie Mellon University was founded in Pittsburgh in 1900.\n"
+                "Question: When was Carnegie Mellon University founded?\n"
+                "Answer: 1900\n\n"
+                "Example 2:\n"
+                "Context: UPMC Shadyside is part of the University of Pittsburgh system.\n"
+                "Question: Is UPMC Shadyside part of the University of Pittsburgh system?\n"
+                "Answer: Yes"
+            )
+            template = (
+                f"{instruction_prompt}\n"
+                "Few-shot examples:\n"
+                f"{few_shot_examples}\n"
+                "Context: {context}\n"
+                "Question: {question}\n"
+                "Helpful Answer:"
+            )
+        else:
+            template = (
+                f"{instruction_prompt}\n"
+                "Context: {context}\n"
+                "Question: {question}\n"
+                "Helpful Answer:"
+            )
 
-    prompt_template = PromptTemplate(
-        input_variables=["context", "question"],
-        template=template
-    )
-    qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, chain_type_kwargs={"prompt": prompt_template})
+        prompt_template = PromptTemplate(
+            input_variables=["context", "question"],
+            template=template
+        )
+        qa_chain = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=retriever, chain_type_kwargs={"prompt": prompt_template})
 
     if args.annotation_data_format == "csv":
         # load questions and answers
