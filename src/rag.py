@@ -14,6 +14,7 @@ from transformers import pipeline, AutoTokenizer, AutoModelForSeq2SeqLM, AutoMod
 from langchain_community.document_loaders import DirectoryLoader
 from langchain_community.document_loaders import TextLoader
 from langchain import PromptTemplate
+import string
 
 def arg_parser():
     parser = argparse.ArgumentParser(description="ThreeRiversRAG")
@@ -60,11 +61,8 @@ def calculate_metrics(predictions, ground_truths):
     total_precision = 0.0
 
     for pred, gt in zip(predictions, ground_truths):
-        gt = str(gt)
-        pred = remove_punctuation(pred.lower())
-        gt = remove_punctuation(gt.lower())
-        pred = pred.lower()
-        gt = gt.lower()
+        pred = clean_answer(pred)
+        gt = clean_answer(gt)
         # Count exact matches
         if pred == gt:
             exact_match_count += 1
@@ -113,11 +111,33 @@ def extract_answer(answer):
     else:
         return "Extract failed"
 
-def remove_punctuation(sentence):
-    if sentence and sentence[-1] == ".":
-        return sentence[:-1]
-    else:
-        return sentence
+def clean_answer(text):
+    # Characters to strip from beginning and end
+    edge_chars = set(string.whitespace + string.punctuation + '"\'')
+
+    # Articles to optionally remove from the beginning
+    leading_articles = {'the', 'a', 'an'}
+
+    # Normalize input
+    text = str(text).lower()
+    text = text.replace(u'\u00a0', ' ')
+
+    # Strip leading unwanted characters
+    while text and text[0] in edge_chars:
+        text = text[1:]
+    # Strip trailing unwanted characters
+    while text and text[-1] in edge_chars:
+        text = text[:-1]
+
+    # Remove all punctuation (including commas) from the text
+    text = ''.join(char for char in text if char not in {",", "."})
+
+    # Tokenize and remove leading article
+    tokens = text.split()
+    if tokens and tokens[0] in leading_articles:
+        tokens = tokens[1:]
+
+    return ' '.join(tokens)
 
 def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
     """
@@ -187,8 +207,8 @@ def main():
         text_loader_kwargs={'autodetect_encoding': True}
         loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs=text_loader_kwargs, show_progress=True, use_multithreading=True)
         docs = loader.load()
-        chunk_size = 500
-        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=100)
+        chunk_size = 1500
+        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=200)
         splitted_docs = splitter.split_documents(docs)
         print(f"Retrieval documents loaded.")
 
