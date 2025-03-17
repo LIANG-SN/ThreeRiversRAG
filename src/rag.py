@@ -170,7 +170,7 @@ def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
                     answer = output.get("result", output)
             else:
                 answer = output
-            if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct"}:
+            if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct", "meta-llama/Llama-3.1-8B"}:
                 answer = extract_answer(answer)
             batch_predictions.append(answer)
         
@@ -187,7 +187,8 @@ def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
         if batch_size == 1:
             print(f"Question: {batch[0]}")
             print(f"Answer: {batch_predictions[0]}")
-            print(f"Ground Truth: {batch_ground_truths[0]}")
+            if ground_truths:
+                print(f"Ground Truth: {batch_ground_truths[0]}")
             print("-" * 40)
             
     return predictions
@@ -207,8 +208,8 @@ def main():
         text_loader_kwargs={'autodetect_encoding': True}
         loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs=text_loader_kwargs, show_progress=True, use_multithreading=True)
         docs = loader.load()
-        chunk_size = 1000
-        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=150)
+        chunk_size = 500
+        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=100)
         splitted_docs = splitter.split_documents(docs)
         print(f"Retrieval documents loaded.")
 
@@ -238,7 +239,7 @@ def main():
 
     # Initialize a Hugging Face pipeline for text generation using an open-source model.
     tokenizer = AutoTokenizer.from_pretrained(args.generation_model_name)
-    if args.generation_model_name == "Qwen/Qwen2-7B-Instruct":
+    if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct", "meta-llama/Llama-3.1-8B"}:
         model = AutoModelForCausalLM.from_pretrained(args.generation_model_name, torch_dtype=torch.float16, device_map="auto")
         model.eval()
         pipe = pipeline('text-generation', model=model, tokenizer=tokenizer, torch_dtype=torch.float16)
@@ -317,7 +318,11 @@ def main():
         if len(df) > 2500:
             df = df.sample(n=2500, replace=False, random_state=42)
         questions = df['Questions'].tolist()
-        ground_truths = df['Answers'].tolist()
+        if 'Answers' in df.columns:
+            ground_truths = df['Answers'].tolist()
+        else:
+            ground_truths = None
+
 
     elif args.annotation_data_format == "txt":
         # Load questions from file
