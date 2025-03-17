@@ -1,0 +1,564 @@
+1: When was Carnegie Mellon University founded?
+2: When does Kara Walker exhibition open?,
+3: Is the Superstar opera held indoors?,
+4: What programs are available through City Cuts community program in Pittsburgh?,
+5: Where can residents apply for business licenses and permits?,
+6: What does Duquesne Light Company provide in Pittsburgh?,
+7: How many bridge counts are there in the city of Pittsburgh?,
+8: What activity is listed for spring scenes to do in Pittsburgh?
+9: Which venue hosted the annual event known as Trace Echo?
+10: What is one of the unique cultural experiences Pittsburgh offers for tourists?
+11: Who will Pittsburgh host the NFL draft alongside in 2026?
+12: On which list did Pittsburgh feature as part of Lonely Planet’s 2025 Global Best Travel list?
+13: What is recommended for Valentine’s Day in Pittsburgh?
+14: What annual event is Pittsburgh known for hosting every year?
+15: Can local businesses conduct transactions without a City ID number?
+16: Who should a business contact for questions about the Business Tax?
+17: What information is needed for local service tax exemption?
+18: How do businesses file a refund for local service tax overpayment?
+19: Is there an option to pay real estate taxes remotely?
+20: What do non-residents need to pay for using sports facilities?
+21: Are parking tax forms available for multiple years?
+22: What legal document grants rights to local taxpayers?
+23: How many calendar days does the Department of Finance give for responding to requests for information?
+24: Under what condition can the Finance Department take lawful action against a taxpayer?
+25: Who can taxpayers hire to represent them during audits?
+26: How many business days does the Finance Department have to issue decisions on reassessments?
+27: What document must accompany a petition for reassessment?
+28: Within how many years can taxpayers file requests for refunds?
+29: What types of taxes are included in the disclosure statement?
+30: What can taxpayers complain about to the Treasurer?
+31: What action can the Finance Department take if a taxpayer owes delinquent taxes?
+32: Who is Andrew Carnegie?
+33: What was Scott Fahlman known for?
+34: When did the first Robotics Institute open?
+35: Which CMU professor created the Negotiation Badge for Girl Scouts?
+36: How many startups linked to CMU have raised over $7 billion?
+37: In which city are multiple CMU locations found?
+38: What ranking did CMU receive in Undergraduate Computer Science?
+39: What year did the Smile emoticon first appear?
+40: What is CMU known for in the pop art movement?
+41: Where was the first Urban Challenge Robotic Autonomous Vehicles race held?
+42: What is Carnegie Mellon University's main campus address?
+43: Where is the David & Susan Coulter Welcome Center located?
+44: Does Carnegie Mellon University offer virtual tours?
+45: How many colleges and universities are there in Pittsburgh?
+46: What does Carnegie Mellon University encourage its students to do?
+47: Where can one find information about Carnegie Mellon University's global presence?
+48: Is there a section dedicated to CMU's athletics?
+49: Does the doc mention the date the exhibition by Kara Walker opens?
+50: Is Carnegie Mellon University a part of any specific district in Pittsburgh?
+51: Does CMU offer on-campus events for high school students?
+52: What resource provides application plans and deadlines?
+53: Is graduate admission handled by academic departments?
+54: Where do prospective undergrads find their fit at CMU?
+55: What department handles graduate admission?
+56: Does CMU offer global programs?
+57: Who has ultimate responsibility for Carnegie Mellon University?
+58: What do the trustees delegate to the president?
+59: What does the president serve as besides the head of university administration at CMU?
+60: What role does the board of trustees play in the strategic plan of the university at CMU?
+61: Where is Carnegie Mellon University located?
+62: How can one contact the Office of the President at CMU?
+63: What does the Office of Board of Trustees oversee at CMU?
+64: What is one of the responsibilities of the Board of Trustees at CMU?
+65: What year did Carnegie Mellon University undertake the process to assess and revise its strategic plan?
+66: Which two themes have been identified as areas of focus for the strategic plan update?
+67: Who leads the Strategic Plan Update Steering Committee?
+68: Which aspects of student experiences are highlighted in the strategic plan update?
+69: What is the purpose of the community feedback survey at CMU?
+70: Who is James Rohr, and what is his relation to Carnegie Mellon University?
+71: What does Carnegie Mellon University do according to the document?
+72: How many key themes are mentioned in the strategic plan update?
+73: What is the main goal of the University's commitment to Inclusive Excellence?
+74: Who leads the Office of the Vice Provost for Community Engagement, Development, and Compliance at CMU?
+75: What is the purpose of the "Deeper Conversations" initiative at Carnegie Mellon University?
+76: What is the theme of the "Combating Hate" multi-event series?
+77: Who is the President of Carnegie Mellon University?
+78: Is Carnegie Mellon University located in Pittsburgh?
+79: What is the address of Carnegie Mellon University?
+80: What is the role of Dr. Henry L. Hillman at Carnegie Mellon University?
+81: What does Carnegie Mellon University's 'Bridging to Inclusive Excellence' framework aim to achieve?
+82: What is the mission of the Environmental Services?
+83: Where is the 311 response center located?
+84: What programs do DPW offer for community support?
+85: In what language can the city of Pittsburgh website be translated?
+86: Which organization provides assistance in animal situations, both domestic and wild?
+87: Who ensures equal opportunity for participation in city programs and services?
+88: What can Citizens inquire about through the 311 response center?
+89: What does the Sustainability section cover?
+90: What are some roles provided by the Innovation & Performance sub-menu?
+91: Who can apply to be considered for appointment for city boards, authorities, and commissions?
+92: What is the term length for the city controller position in the city of Pittsburgh?
+93: Which organization manages Pittsburgh's parks?
+94: Is there a department dedicated to filming and events in Pittsburgh?
+95: Can businesses register for new services in Pittsburgh?
+96: What is the primary role of city council in Pittsburgh?
+97: Does Pittsburgh have a digital equity coalition?
+98: Are there specific roles available for internship or volunteer work in Pittsburgh's city government?
+99: Where can one find detailed information about Pittsburgh's city government departments?
+100: What is the purpose of the Pittsburgh Police Cares program?
+101: What is the mission of the Pittsburgh Bureau of Fire?
+102: What does the bureau of Animal Care & Control do?
+103: Does the city of Pittsburgh have an Office of Community Health and Safety?
+104: Where is the accessibility entrance located for the city's main building?
+105: How can interested individuals engage with the city of Pittsburgh?
+106: Is there any disclaimer or policy section on the site?
+107: What is the mission of the Department of Public Works?
+108: Who does the Procurement department collaborate with to meet city agencies' operational goals?
+109: What is the goal of the Sustainability and Resilience program?
+110: What is a key responsibility of the Zoning Division within the Department of City Planning?
+111: What does the GIS Division provide in terms of services to city departments?
+112: How can someone reach out to the City of Pittsburgh for accessibility inquiries?
+113: What is the main purpose of the Pittsburgh Digital Equity Coalition?
+114: Who is eligible for the Pgh Lab program?
+115: Who is Katherine Kohatsu?
+116: What degree did Katherine Kohatsu receive from CMU?
+117: What role does Jeff Miracle hold in relation to CMU?
+118: Who are some members of the ACS Board?
+119: What types of contributions do donors recognize through the ACS Board?
+120: Is there a physical address provided for contacting CMU?
+121: Which social media platforms are mentioned for following CMU?
+122: What resources are available for alumni to engage with CMU?
+123: Are there different networks within CMU's alumni community?
+124: What are some options for making a gift to CMU?
+125: What is the purpose of annual support at Carnegie Mellon University?
+126: Where do gifts to the CMU Fund go?
+127: Can I specify how my annual gift supports at CMU?
+128: For how long must I continuously donate to become a Lifetime Member of the Order of the May?
+129: What is the Andrew Carnegie Society?
+130: Can gifts be made in different forms?
+131: What is the AC Scholars Program?
+132: Is there an online community for alumni?
+133: What is the Dunfermline Circle?
+134: Are there opportunities for alumni to create legacy gifts?
+135: Who is the Provost and Chief Academic Officer at Carnegie Mellon University?
+136: What is the role of David P. Bennett at Carnegie Mellon University?
+137: Who is the Vice President for Finance and Chief Financial Officer?
+138: Who serves as Vice President for Student Affairs and Dean of Students?
+139: Which officer oversees the Office of the President at Carnegie Mellon University?
+140: Who is the Chief Investment Officer at Carnegie Mellon University?
+141: Who is responsible for University Communications and Marketing?
+142: What position does Theresa Mayer hold at Carnegie Mellon University?
+143: Who is the Chief of Staff to the President?
+144: What is the Vice President for Information Technology and Chief Information Officer's name?
+145: When is the commencement weekend scheduled for Carnegie Mellon University in 2025?
+146: What dates do events begin during the commencement weekend?
+147: When should families book hotel rooms for commencement weekend?
+148: Which university can provide information for international guests applying for a B-2 tourist visa?
+149: Are there documents that international guests can use to convey their visa needs?
+150: Can guests watch commencement activities if they cannot travel?
+151: Where is Carnegie Mellon University located?
+152: How can families reserve space for a Tartan commencement ad?
+153: Can the Office of International Education be contacted for more information?
+154: When was the first artificial intelligence program created?
+155: Which processor system was built by CMU researchers in the early 1970s?
+156: What was the name of the first artificial intelligence program created by Herb Simon and colleagues?
+157: What is the name of the computer built by the researchers in 1971?
+158: What was Raj Reddy's contribution to the field of speech recognition?
+159: Who created the emoticon for computer message boards?
+160: Who led the development of the Mach Kernel?
+161: What computer science principle did researchers apply to improve computer interfaces in 1983?
+162: Who led the development of the Universal Translator, inspired by Star Trek's devices?
+163: What does "Kernel" refer to in computer parlance?
+164: Who played key roles in the development of Deep Blue, which beat human chess champion Gary Kasparov in 1997?
+165: What technology enabled automatic public Turing test for telling computers and humans apart?
+166: Who developed the Robotic Video Camera system for the NFL's Super Bowl XXXV?
+167: Which organization's early self-driving vehicle won the 2007 DARPA Urban Challenge?
+168: Who are making progress in reading people's thoughts using Brain Scans?
+169: Through what videogame do people contribute to genetic research in RNA Sequencing?
+170: What is the name of the CMU spinoff that offers free language tutoring software?
+171: Which IBM computer, featuring CMU-developed technology, defeated human champions on "Jeopardy!"?
+172: Who developed a practical encryption scheme for securing online information?
+173: What year was the Carnegie Mellon University BAA founded?
+174: When is the Raceday 2025 scheduled?
+175: How fast can the buggy reach during the race?
+176: What unique type of race is the Carnegie Mellon University Buggy Race?
+177: Which organization provides guidelines for Raceday participants?
+178: Can alumni from outside CMU participate in the BAA?
+179: Is there a podcast associated with the Buggies?
+180: How can one get their first year of BAA membership for free?
+181: What are the categories for Raceday prizes?
+182: When was UPMC Shadyside founded?
+183: What is the address of UPMC Shadyside?
+184: Is there an Urgent Care service available at UPMC Shadyside?
+185: How can a patient request medical records at UPMC Shadyside?
+186: Where can one find classes and events at UPMC Shadyside?
+187: Is UPMC Shadyside part of the University of Pittsburgh system?
+188: Which services are offered at the UPMC Hillman Cancer Center?
+189: What recognition has UPMC Shadyside received for nursing excellence?
+190: When does the Madama Butterfly exhibition open?,
+191: Who is the creative team of Madama Butterfly production?,
+192: What is the date of the Opera in Red Gala?,
+193: Where is the Pittsburgh Opera located?,
+194: What is the purpose of the Madama Butterfly production?,
+195: What is one of the events being promoted by Pittsburgh Opera?,
+196: Can people reserve events at Pittsburgh Opera's facilities?,
+197: When did Gertrude Abercrombie pass away?
+198: Where is the Andy Warhol Museum located?
+199: What event takes place at Carnegie Science Center?
+200: During which month are Black History Month activities hosted by Carnegie Museums?
+201: What is the name of the dinosaur exhibit featured at Carnegie Museum of Natural History?
+202: What is the duration of the Dippy exhibit at Carnegie Museum of Natural History?
+203: At which location are Miniature Railroad & Village scenes displayed?
+204: What does the "Explore Our Collections" section offer to visitors at Carnegie Museums?
+205: What is the theme of the 30th anniversary exhibition at the Andy Warhol Museum?
+206: What event takes place at the Heinz History Center on March 2?,
+207: Where can one conduct research for family history in Pittsburgh?,
+208: What are the operating hours for the Fort Pitt Museum?,
+209: When does Meadowcroft Rockshelter and Historic Village reopen?,
+210: What event occurs at the Heinz History Center on March 22?,
+211: Can one engage in activities at Discovery Place?,
+212: What collections can visitors explore at the Heinz History Center?,
+213: What is the name of the tour that immerses visitors in 1892?
+214: What can visitors enjoy at the Café at the Frick?
+215: What is the operating time for the Car and Carriage Museum?
+216: What kind of music event is Echoes: An Evening of Music with Kea?
+217: When does the Guided Evening Tour of Kara Walker exhibition happen?
+218: What is the main theme of the Book Talk: Dr. Edda Fields-Black on Harriet Tubman and the Combahee River Raid?
+219: On what date is the Guest Label Writers in Conversation event scheduled?
+220: How can visitors contact the Frick Pittsburgh for inquiries?
+221: What is the American Jewish Museum?
+222: Who was instrumental in the development of the American Jewish Museum?
+223: Where is the American Jewish Museum located?
+224: What is the focus of the exhibitions hosted by the American Jewish Museum?
+225: Who curated the exhibition "Legacy"?
+226: What was the title of the exhibition featuring artwork by Sam Rosenberg's students?
+227: In which year was the exhibition "To Speak Her Heart" held?
+228: Which artist's work was showcased in the exhibition "India: A Light Within"?
+229: What was the subject of the exhibition held in 2017?
+230: Which institution collaborated with the American Jewish Museum for the exhibition on "Nazi Persecution of Homosexuals"?
+231: When does Gertrude Abercrombie: The Whole World is a Mystery exhibition open?
+232: Where is the Carnegie Museum of Art located?
+233: How can one support the Carnegie Museum of Art?
+234: What is the Carnegie International?
+235: What is Powdermill Nature Reserve's mission?
+236: What scientific studies are conducted at Powdermill?
+237: How can I reach the Powdermill Nature Reserve?
+238: What award did Michael J. Bainbridge win?
+239: How long has Powdermill Nature Reserve been dedicated to its mission?
+240: Where can I find the research center Powdermill is associated with?
+241: What is the Andy Warhol Museum known for?
+242: Where is the Bicycle Heaven museum located?
+243: Is the August Wilson Center for African American Culture considered a museum?
+244: How many types of exhibits can visitors find at Carnegie Science Center?
+245: In which neighborhood is the Clemente Museum situated?
+246: Who is the subject of the Elmer H. Grimm Sr. Pharmacy Museum?
+247: What is Fort Pitt Museum's relationship to Pennsylvania Historical and Museum Commission?
+248: Where can one view artifacts related to Roberta Clemente?
+249: Does the Frick Pittsburgh feature an art museum and a car museum?
+250: What is the subject of the Randyland museum?
+251: What is Jesus Christ Superstar?,
+252: Where is Pittsburgh Musical Theater located?,
+253: Which show features a musical retelling of the final days of Jesus?,
+254: In which venues can patrons enjoy professional productions offered by Pittsburgh Musical Theater?,
+255: What is ASL interpretation, and when are they available for Pittsburgh Musical Theater performances?,
+256: Who manages the accessibility services at Pittsburgh Musical Theater?,
+257: How can one exchange tickets for another performance within the series?,
+258: Can patrons get large print and braille programs from Pittsburgh Musical Theater?,
+259: What does the term 'professional production' signify in the context of Pittsburgh Musical Theater?,
+260: Is it possible to donate to Pittsburgh Musical Theater securely online?,
+261: What is Madama Butterfly about in this new production?
+262: Where is Madama Butterfly being performed?
+263: When does Madama Butterfly have performances?
+264: How can one purchase tickets for Madama Butterfly?
+265: Who are some of the Resident Artists for the 2024-25 season?
+266: What position does Christopher Hahn hold at Pittsburgh Opera?
+267: Who is the Music Director of Pittsburgh Opera?
+268: What is the contact number for Pittsburgh Opera?
+269: How does one learn more about the Resident Artist Program at Pittsburgh Opera?
+270: When is the Kara Walker exhibition opening?
+271: Is the Superstar opera held indoors?
+272: How many days are listed in the calendar provided?
+273: Where is Pittsburgh Opera located?
+274: What is the contact number for Pittsburgh Opera?
+275: How can one receive updates from Pittsburgh Opera?
+276: Is there a physical address provided for Pittsburgh Opera?
+277: What event is happening on November 15, 2025?
+278: When is the Holiday Brass event?
+279: Where is the Pittsburgh Symphony Orchestra holding its Sensory Friendly Concert?
+280: Which composer's work is featured at the December 2 concert?
+281: On which day is Messiah happening in 2025?
+282: Who plays Bruch in one of the events?
+283: Is there a Christmas event scheduled for December 13, 2025?
+284: When is the Grimaud and Gershwin concert?
+285: Does the Pittsburgh Symphony Orchestra have an event in January 2026?
+286: When does the Greek food festival start in Pittsburgh?
+287: What event takes place in August at the end of the month in Bloomfield?
+288: Where is the Apple Festivals held in the fall?
+289: Which festival celebrates tacos and Pittsburgh's Latin-American community?
+290: Is there a festival featuring Italian cuisine and crafts held annually in September?
+291: When does the Mac & Cheese Festival occur in Pittsburgh?
+292: What is the duration of Picklesburgh festival in July?
+293: During which months are Maple Festivals held in Pennsylvania?
+294: Where is the Original Pittsburgh Taco Festival held annually?
+295: Is there a family-friendly event happening in December within the Lawrenceville neighborhood?
+296: When does Picklesburgh 2024 take place?
+297: Who produces Picklesburgh?
+298: Where is Picklesburgh located?
+299: When is the Pittsburgh Taco Festival held?
+300: What time does the Pittsburgh Taco Festival start?
+301: Where is the Pittsburgh Taco Festival venue located?
+302: Does the festival have a specific sponsor for 2024?
+303: When does Pittsburgh Restaurant Week take place in winter?
+304: What is the purpose of sponsoring Pittsburgh Restaurant Week?
+305: Which cities were covered in previous Pittsburgh Restaurant Weeks?
+306: Where can I RSVP for the Restaurant Week Facebook event?
+307: Is there a way to find the most delicious restaurants during Pittsburgh Restaurant Week?
+308: Who operates Pittsburgh Restaurant Week?
+309: What is Pittsburgh Restaurant Week?
+310: Who can participate in sponsoring Pittsburgh Restaurant Week?
+311: What benefits do sponsors receive from Pittsburgh Restaurant Week?
+312: What is the submission process for restaurants interested in participating in Pittsburgh Restaurant Week?
+313: How is the duration of Pittsburgh Restaurant Week scheduled for the summer of 2022?
+314: Are there any notable participating restaurants in summer 2022?
+315: Can customers reserve tables online during Pittsburgh Restaurant Week?
+316: Is outdoor dining available during Pittsburgh Restaurant Week?
+317: Are there specific price points for meals at participating restaurants during Pittsburgh Restaurant Week?
+318: What is The Zenith?
+319: Where is Apteka located?
+320: What is Allegro Bakery known for?
+321: What is Shadobeni's specialty?
+322: What are Moodz Co.'s operating hours?
+323: Where is Viridis located?
+324: Which restaurant was founded on the idea of plant-based food being indulgent?
+325: What is featured on the pancake special at Square Café?
+326: What is Picklesburgh?
+327: Where is Picklesburgh held?
+328: In what year did Picklesburgh start?
+329: Which festival came second in USA Today's 10Best Readers' Choice Awards for 2023?
+330: How many days does Picklesburgh last in 2023?
+331: Who announced that Picklesburgh would return in 2023?
+332: Where was Picklesburgh held in 2022?
+333: What contests are held during Picklesburgh?
+334: Is there an expanded event planned for Picklesburgh in 2023?
+335: Who does Rep. Chris Deluzio voice concern for regarding mass VA layoffs?
+336: When does the summer food service program begin in 2024?
+337: How long does the 2024 summer food service program run?
+338: Which location hosts the summer food service program kick-off event?
+339: Who can participate in the summer food service program?
+340: Who is protected from discrimination in USDA programs?
+341: Who can file a program complaint of discrimination?
+342: Where is the accessibility entrance located in the city of Pittsburgh?
+343: What are the contact details for the City of Pittsburgh?
+344: When does the Kara Walker exhibition open?
+345: Is there a message about the 311 system having limited functionality?
+346: Can citizens request accommodations for disabilities via 311?
+347: What types of events are listed under the Special Events section?
+348: How can citizens apply for special event permitting?
+349: Are there any job opportunities listed in the City Government section?
+350: How can one stay updated on City of Pittsburgh news and events?
+351: Is there a resource for filing complaints against the city?
+352: What is the main purpose of the Food Systems section?
+353: What title did Sporting News Magazine award to Pittsburgh regarding sports?
+354: Which Pittsburgh sports venue is known for its "renegade" being played in the fourth quarter?
+355: What year did Acrisure Stadium host two outdoor hockey games?
+356: Where are the Pittsburgh Pirates' home games played?
+357: How many home run balls have splashed into the Allegheny River at PNC Park?
+358: When was Highmark Stadium, where Pittsburgh Riverhounds play, built?
+359: What nickname does the Riverhounds' mascot represent?
+360: How long was the Pittsburgh Penguins' sell-out streak at PPG Paints Arena before being broken?
+361: Who did the Pittsburgh Steelers become the first NFL team to win six Super Bowl titles with?
+362: What is Roberto Clemente famous for in Pittsburgh?
+363: What is the name of the official website for the Pittsburgh Pirates?
+364: Who hosted the Pittsburgh Pirates during a spring training match in 2025?
+365: Where can fans watch live matches of the Pittsburgh Pirates on MLB TV?
+366: Which player gave a noteworthy performance in the 2025 Spring debut?
+367: Where are the Dublin Game played?
+368: Who won Russell Wilson's flag football game?
+369: Which player had the pick-six off Smith-Njigba?
+370: In which country are the 2025 regular season game to be played?
+371: What is the purpose of the Steelers Mobile App?
+372: At what venue did the Steelers play the Ravens?
+373: When did Coach Mike Tomlin speak to the media after the 14-28 loss to the Ravens?
+374: What podcast episode featured T.J. Watt's 100th career sack?
+375: Which player scored the only touchdown against the Bengals?
+376: Does the Penguins app offer contests and promotions?
+377: Which NHL team did Mike Lange tribute during the month of March?
+378: What did Penguins do for Make-A-Wish youngsters?
+379: Who are some of the Penguins' founders?
+380: Is the Penguins Foundation related to Mario Lemieux Foundation?
+381: Who does nhl.com belong to?
+382: What is the Penguins' official website?
+383: When is the Maple Leafs game mentioned?
+384: When was the Detroit Tigers website established?
+385: Which website allows viewing game streams?
+386: Who was mentioned as being part of the Tigers roster?
+387: Where is the Lakeland Spring Training venue located?
+388: What service does the Tigers website offer for accessing game schedules?
+389: What does the website provide for fans regarding merchandise?
+390: How can fans donate to charity through the Tigers website?
+391: What is the 2025 Spring Training schedule available on?
+392: In which city are the Tigers playing their home games?
+393: What was the result of the Pittsburgh Steelers vs Kansas City Chiefs game on December 25, 2024?
+394: How many touchdowns did the Pittsburgh Steelers score in the game?
+395: Did the Kansas City Chiefs have a strong offensive line?
+396: Who were some key Pittsburgh Steelers players mentioned?
+397: What was the lowest point total recorded by the Pittsburgh Steelers' offense this season?
+398: What caused Pittsburgh's sports teams to start wearing black and gold?
+399: Which sports team was the first in Pittsburgh to wear black and gold?
+400: Why did the Pittsburgh Pirates switch to black and gold uniforms in 1947?
+401: When did the Pittsburgh Penguins change their uniforms to black and gold?
+402: How did the Boston Bruins react to the Penguins' decision to wear black and gold?
+403: In what year did the NHL's Pirates switch to black and orange?
+404: What event in the 1970s helped the Penguins decide to adopt black and gold uniforms?
+405: Did the Steelers change their uniform colors in 1943?
+406: Why was the number 'Black and gold has become Pittsburgh.' mentioned?
+407: What does 'The Pirate uniforms for 1948' imply?
+408: When were the Pittsburgh Steelers established?
+409: Where is the Riverhounds soccer team located?
+410: How many times have the Pittsburgh Penguins won the Stanley Cup?
+411: What stadium do the Pittsburgh Pirates play in?
+412: Which university is in the heart of Pittsburgh and is part of the city's sports scene?
+413: What does the Western Pennsylvania Sports Museum feature?
+414: Who is Pittsburgh's biggest baseball legend?
+415: What event does the Pittsburgh Vintage Grand Prix include?
+416: Where can visitors learn about the Steelers Hall of Fame?
+417: What is the capacity of Acrisure Stadium?
+418: Who leads the sportspittsburgh team?
+419: What role does sportspittsburgh play in sports development?
+420: What mix of sports events does sportspittsburgh support?
+421: What are some direct benefits of hosting sports events in Pittsburgh?
+422: How does sportspittsburgh connect event planners with stakeholders?
+423: Is sportspittsburgh part of VisitPittsburgh?
+424: What are visitors encouraged to do when coming to Pittsburgh?
+425: How can individuals get involved with sportspittsburgh?
+426: What is the address of the sportspittsburgh office?
+427: Is there a phone number provided for sportspittsburgh contact?
+428: What is the mission of the Plaidvocates?
+429: Who can I contact if I'm unsure which Plaidvocate to approach?
+430: How can I request a meeting with a Plaidvocate?
+431: What personal information is kept confidential when contacting a Plaidvocate?
+432: Which department handles the development of Carnegie Mellon's official site?
+433: How can I access Carnegie Mellon Athletics' privacy policy?
+434: What fields does Carnegie Mellon's Athletics department provide schedules for?
+435: Are all Plaidvocate interactions recorded?
+436: Can visitors reserve Carnegie Mellon's athletic facilities?
+437: What is the purpose of the Tartan Athletics Club?
+438: What event is happening at David L. Lawrence Convention Center on March 2, 2025?
+439: Where is the Toronto Maple Leafs vs Pittsburgh Penguins hockey game held?
+440: When does the World Oddities Expo open on March 2, 2025?
+441: Which venue is hosting the Pittsburgh Symphony Orchestra’s performance of Pixar in Concert on March 2, 2025?
+442: What event takes place at City Winery Pittsburgh on March 2, 2025?
+443: At which location is the comedian Thea Von performing on March 2, 2025?
+444: Where is the dance performance "Kimberly Akimbo" taking place on March 4, 2025?
+445: Who is performing at the Carnegie Music Hall on March 6, 2025?
+446: When is Disney on Ice presenting Mickey’s Search Party at PPG Paints Arena on March 7, 2025?
+447: What is the price range for tickets to the Jurassic Quest event on March 2, 2025?
+448: Where is Carnegie Mellon University located?
+449: What is one contact number for Carnegie Mellon University?
+450: Can anyone submit events to the CMU calendar?
+451: Are there resources provided for CMU visitors?
+452: Are there any specific dates mentioned for upcoming CMU events?
+453: Is the Carnegie Mellon University website linked?
+454: What platforms does CMU have a presence on?
+455: What are some of the in-person events held by Carnegie Mellon University?
+456: Is Spring Carnival one of the most anticipated events at Carnegie Mellon University?
+457: What activities take place during Homecoming Weekend?
+458: What award is presented during Homecoming Weekend to exceptional alumni?
+459: Who participates in Reunion Weekend events?
+460: What does the term "Tartans" specifically refer to at Carnegie Mellon University?
+461: What role does the President play during Presidential Tours?
+462: What do Faculty members share during Presidential Tours?
+463: Which network offers opportunities for alumni to connect and reconnect with peers?
+464: Can alumni participate in events if they cannot make it to campus?
+465: What genres does Devilish Merry play?
+466: Where is the Poetry Lounge located?
+467: Is there a fee for attending Devilish Merry's performance?
+468: Who submitted the entry for Devilish Merry's performance?
+469: When is the next event listed for Mark?
+470: What kind of establishments are listed under "Culture & Entertainment"?
+471: Which website can users access for information on the Poetic Lounge?
+472: Can users submit an event for the City Paper?
+473: What are the main categories in the Best of Pittsburgh Reader's Poll?
+474: How many people voted in the 2024 Best of Pittsburgh Reader's Poll?
+475: Who won the Best Voguer award in 2024?
+476: Where can I find information about the winners in the Best of Pittsburgh 2024 poll?
+477: What kind of events are offered at the Best of Pittsburgh Party?
+478: Which category includes "best adult store"?
+479: Is there a section dedicated to staff picks in the Best of Pittsburgh 2024?
+480: Which business was recognized for being the best black-owned barbershop in 2024?
+481: Can I subscribe to Pittsburgh City Paper?
+482: What time does the poetry lounge event begin?
+483: What date does the St. Patrick's Parade Day Party at Crafthouse Stage & Grill start?
+484: In which neighborhood is the Calvary Episcopal Church located?
+485: Who performs at the Pittsburgh St. Patrick's Day Bar Crawl?
+486: What is the price range for the Pajama Sessions - The Adventures of Vi & Len?
+487: Where is the Spirit Lodge St. Patrick's Parade Day Gala taking place?
+488: How much does it cost to attend the Kiss Me, I'm Irish: Pittsburgh St. Patrick's Day Bar Crawl (2 Days)?
+489: What special event is happening on March 15 at Arcade Comedy Theater?
+490: When is the Whitney Tribute Concert with Dwayne Fulton?
+491: What event is being held at Beacon Hotel?
+492: Where is the Open Stage w/ Sadie Freund happening?
+493: Is the Mental Health: Mind Matters exhibition still running?
+494: What is the cost of admission for the Museum of Illusions during Teacher Appreciation Week?
+495: Where is the Western Pennsylvania Humane Society located?
+496: What can visitors do on the Pittsburgh Scavenger Hunt?
+497: Where is the Puzzling Adventures Scavenger Hunt held?
+498: Is there a religious discussion event happening at Trinity Cathedral?
+499: What is Pillow Talk with Jessie Sage?,
+500: When does the article "runners brave the cold in their undies for charity" take place?,
+501: Who authored the "Affordable-Ish Housing: Drop It Like It (Was) Hot Edition?" article?,
+502: When are the events featured on "Trending" in Free Will Astrology,
+503: Which organizations were featured in the Now Hiring section for March 7, 2025?,
+504: Who wrote the article titled "The Incredible Pros and Potentially Devastating Consequences of Freezing Glass Dildos?",
+505: What day did "Runners Brave the Cold in Their Undies for Charity" occur according to Mars Johnson's article?,
+506: How often is the Digital Edition of Stay Weird, Pittsburgh published?,
+507: On which date were Code & Crematory events taking place at Laroche College as mentioned?,
+508: What does the "Affordable-Ish Housing: Drop It Like It (Was) Hot Edition" article probably discuss?,
+509: What is the address of Western Pennsylvania Humane Society?
+510: What days and times are walk-in vaccine hours offered at Western Pennsylvania Humane Society?
+511: When was Cat-a-Palooza event held?
+512: What courses were offered on June 5, 2016, at Western Pennsylvania Humane Society?
+513: Who presented "Dearly Beloved" at Mr. Smalls by Mars John Johnson?
+514: What is the topic of the article "The Best Vegan and Vegetarian Eats in Pittsburgh"?
+515: Where will Pittsburgh's women’s soccer players train this year?
+516: Who provided free will astrology predictions for the week of March 13-19?
+517: When were the feline aggression classes held at Western Pennsylvania Humane Society in 2016?
+518: Who wrote the article "Pittsburgh Ballplayers and Mobsters Once Trekked to Hot Springs for Spring Training"?
+519: Is the Superstar opera held indoors?
+520: Where is the Carnegie Museum of Natural History located?
+521: Which venue hosts the Chicago Transit concert?
+522: What is the capacity of the Ford Family Recital Hall at DeYor PAC?
+523: When is Sal Valentinetti's performance at DeYor PAC scheduled?
+524: Is Acisure Stadium one of the venues for events in Pittsburgh?
+525: Are there events listed for every day from January 1 to May 1?
+526: What event took place on February 27, 2025?
+527: What is the date of the PNC Park opening?
+528: Where are the Pittsburgh Penguins' ice hockey games held?
+529: Is Kennywood an amusement park located in the city?
+530: Which event is happening on St. Patrick's Day in Pittsburgh?
+531: What was destroyed in Pittsburgh in 1845?
+532: In which year did the American Federation of Labor originate in Pittsburgh?
+533: When was the University of Pittsburgh chartered?
+534: What is the theme of the Italian Festival?
+535: When does the Italian Festival take place in 2025?
+536: Where is the VIP experience held in Italian Festival?
+537: How much does the VIP experience of Italian Festival cost?
+538: Who won the Italian vs. Irish Celebrity Bocce Tournament in 2023?
+539: What prize do Miss Little Italy winners receive?
+540: What organization benefits from the Golf Event? 
+541: Is the Miss Little Italy Contest open to non-Italian contestants?
+542: Where can I find information about Pittsburgh's parks?
+543: Which organization hosts events like Cinema in the Park?
+544: Can citizens report animal control issues?
+545: What's Poulet Bleu Chicken and Waffles specialty?
+546: Where did Bae Bae's Kitchen originate?
+547: Which restaurant moved from the Strip District to downtown Pittsburgh?
+548: What's distinctive about Farmer + Baker Aspinwall?
+549: Who are the owners of 2 Sisters 2 Sons?
+550: What type of cuisine does Dianoia's Eattery offer post-pandemic?
+551: What are the signature dishes at Chengdu Gourmet Sichuan restaurant?
+552: What is the specialty of Mediterra Cafe in Sewickley?
+553: Where can diners order Iron Born Detroit-style pizza?
+554: What is the focus of Casa Brasil's menu?
+555: When does the Western Pennsylvania Sports Museum operate?
+556: What happens if I'm not a History Center member visiting the Western Pennsylvania Sports Museum?
+557: Is there free admission for kids aged 17 and under at the Western Pennsylvania Sports Museum?
+558: Where is the Sports Museum located within the Heinz History Center?
+559: Which neighborhoods does the Western Pennsylvania Sports Museum cater to?
+560: Are Fort Pitt Museum, Meadowcroft Rockshelter and Historic Village part of Western Pennsylvania Sports Museum?
+561: How can visitors book tickets for the Western Pennsylvania Sports Museum?
+562: Is there any discount available for retired and active military personnel at the museum?
+563: Are History Center members granted free admission to the Western Pennsylvania Sports Museum?
+564: Can guests bring their children to the Western Pennsylvania Sports Museum for free?
