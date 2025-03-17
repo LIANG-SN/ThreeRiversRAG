@@ -22,3 +22,7 @@ Retrieval-Augmented Generation (RAG) is a powerful solution to the knowledge lim
     --generation_model_name 'Qwen/Qwen2-7B-Instruct' \
     --vectorstore_type faiss
     ```
+
+## Results
+We evaluate the performance of our closed-book baseline, small language model (SLM), and large language model (LLM) under different generation strategies. As shown in Figure, our RAG-based methods consistently outperform the closed-book baselines across all evaluation metrics—Answer Recall, F1 Score, and Exact Match. Among the models, the Qwen-based LLM achieves overall better performance than the T5-based SLM. Interestingly, introducing few-shot examples improves the performance of the T5 model, particularly in Answer Recall and F1 Score. In contrast, few-shot prompting slightly reduces performance for the Qwen model, suggesting that larger models may be more sensitive to prompt structure or redundancy in simpler tasks.
+![image](./src/plots/generation_models.png)
