@@ -7,6 +7,30 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import re
 from tqdm import tqdm
 
+import argparse
+
+def arg_parser():
+    parser = argparse.ArgumentParser(description="ThreeRiversRAG")
+
+    parser.add_argument('--model_id', type=str,
+                        default="Qwen/Qwen2-7B-Instruct")
+    parser.add_argument('--max_new_tokens', type=int,
+                        default=512)
+    parser.add_argument('--temperature', type=float,
+                        default=1.0)
+    parser.add_argument('--top_k', type=int,
+                        default=50)
+    parser.add_argument('--top_p', type=float,
+                        default=0.95)
+    parser.add_argument('--max_length', type=int,
+                        default=131072)
+    parser.add_argument("--annotation_result", type=str,
+                        default="/home/ubuntu/ThreeRiversRAG/data/annotation_data/annotation_qa/")
+    parser.add_argument("--source_links", type=str,
+                        default="/home/ubuntu/ThreeRiversRAG/data/annotation_data/main_source_link_data/source_data_links.csv")
+    return parser.parse_args()
+
+
 def retreive_documents(file):
     # Load the source link csv file
     file_links = pd.read_csv(file)
@@ -26,14 +50,15 @@ def retreive_questions(text):
     return questions
 
 def main():
-    max_length = 131072
+    args = arg_parser()
+    max_length = args.max_length
     # Load the model and tokenizer to the GPU
     gpu_properties = torch.cuda.get_device_properties(0)
     total_memory_gb = gpu_properties.total_memory / (1024 ** 3)
     print(f"Total GPU Memory: {total_memory_gb:.2f} GB")
     if torch.cuda.is_available():
         print("Using GPU")
-    model_id = "Qwen/Qwen2-7B-Instruct"
+    model_id = args.model_id
     tokenizer = AutoTokenizer.from_pretrained(model_id, truncation=True, max_length=max_length)
     model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float16, device_map="auto")
 
@@ -60,7 +85,7 @@ def main():
     INSTRUCTIONS = " ".join(instruct_prompts)
 
     # Load the source links
-    source_links = "/home/ubuntu/ThreeRiversRAG/data/annotation_data/main_source_link_data/source_data_links.csv"
+    source_links = args.source_links
     dict_links = retreive_documents(source_links)
 
     topics_df = {}
@@ -85,7 +110,7 @@ def main():
                 print("Using GPU for inference...")
                 model.to("cuda")
             try:
-                result = pipe(messages, max_new_tokens=512, temperature = 1, top_k = 50, top_p = 0.95)
+                result = pipe(messages, max_new_tokens=args.max_new_tokens, temperature = args.temperature, top_k = args.top_k, top_p = args.top_p)
             except:
                 print("Generation failed", SOURCE)
                 continue
@@ -108,7 +133,7 @@ def main():
     # Save the questions to a csv file
     try:
         for key, value in tqdm(topics_df.items(), desc="Saving files"):
-            value.to_csv(f"/home/ubuntu/ThreeRiversRAG/data/annotation_data/annotation_qa/{key}.csv", index=False)
+            value.to_csv(args.annotation_result + f"{key}.csv", index=False)
     except:
         print("Failed to save the questions to a csv file")
 
