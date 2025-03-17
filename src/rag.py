@@ -207,8 +207,8 @@ def main():
         text_loader_kwargs={'autodetect_encoding': True}
         loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs=text_loader_kwargs, show_progress=True, use_multithreading=True)
         docs = loader.load()
-        chunk_size = 1500
-        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=200)
+        chunk_size = 1000
+        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=150)
         splitted_docs = splitter.split_documents(docs)
         print(f"Retrieval documents loaded.")
 
@@ -217,8 +217,8 @@ def main():
 
     # Build a vector store from the documents and embeddings.
     if args.vectorstore_type == "faiss":
-        print("Building FAISS vector store...")
         if not args.db_path:
+            print("Building FAISS vector store...")
             vectorstore = FAISS.from_documents(splitted_docs, embeddings)
             vectorstore.save_local("faiss_index")
         else:
@@ -255,11 +255,17 @@ def main():
     yes_or_no_req = """If a question is a yes or no question, the answer must be exactly 'yes' or 'no' without any additional information and without punctuation"""
     if args.no_prompt:
         instruction_prompt = ""
-    else:  
-        instruction_prompt = " ".join([ans_req, yes_or_no_req])
+    else:
+        if args.generation_model_name == 'google/flan-t5-base':
+            instruction_prompt = "Answer the question based only on the provided context in just one sentence."
+        else:
+            instruction_prompt = " ".join([ans_req, yes_or_no_req])
 
     
     if args.baseline:
+        # update the prompt for baseline, no context
+        ans_req = """Answer the question in just one sentence. Each answer must be as concise as possible, extremely succinct—limited to just several keywords—and should not repeat the question."""
+        instruction_prompt = " ".join([ans_req, yes_or_no_req])
         template = (
             f"{instruction_prompt}\n"
             "Question: {question}\n"
@@ -355,3 +361,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# todo: semantic text splitter, temperature
