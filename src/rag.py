@@ -170,7 +170,7 @@ def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
                     answer = output.get("result", output)
             else:
                 answer = output
-            if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct"}:
+            if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct", "meta-llama/Llama-3.1-8B"}:
                 answer = extract_answer(answer)
             batch_predictions.append(answer)
         
@@ -187,7 +187,8 @@ def batch_inference(qa_chain, questions, batch_size, args, ground_truths=None):
         if batch_size == 1:
             print(f"Question: {batch[0]}")
             print(f"Answer: {batch_predictions[0]}")
-            print(f"Ground Truth: {batch_ground_truths[0]}")
+            if ground_truths:
+                print(f"Ground Truth: {batch_ground_truths[0]}")
             print("-" * 40)
             
     return predictions
@@ -207,8 +208,8 @@ def main():
         text_loader_kwargs={'autodetect_encoding': True}
         loader = DirectoryLoader(args.retrieval_dir, glob="**/*.txt", loader_cls=TextLoader, loader_kwargs=text_loader_kwargs, show_progress=True, use_multithreading=True)
         docs = loader.load()
-        chunk_size = 1500
-        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=200)
+        chunk_size = 500
+        splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=100)
         splitted_docs = splitter.split_documents(docs)
         print(f"Retrieval documents loaded.")
 
@@ -217,8 +218,8 @@ def main():
 
     # Build a vector store from the documents and embeddings.
     if args.vectorstore_type == "faiss":
-        print("Building FAISS vector store...")
         if not args.db_path:
+            print("Building FAISS vector store...")
             vectorstore = FAISS.from_documents(splitted_docs, embeddings)
             vectorstore.save_local("faiss_index")
         else:
@@ -238,7 +239,7 @@ def main():
 
     # Initialize a Hugging Face pipeline for text generation using an open-source model.
     tokenizer = AutoTokenizer.from_pretrained(args.generation_model_name)
-    if args.generation_model_name == "Qwen/Qwen2-7B-Instruct":
+    if args.generation_model_name in {"Qwen/Qwen2-7B-Instruct", "meta-llama/Llama-3.1-8B"}:
         model = AutoModelForCausalLM.from_pretrained(args.generation_model_name, torch_dtype=torch.float16, device_map="auto")
         model.eval()
         pipe = pipeline('text-generation', model=model, tokenizer=tokenizer, torch_dtype=torch.float16)
@@ -255,11 +256,17 @@ def main():
     yes_or_no_req = """If a question is a yes or no question, the answer must be exactly 'yes' or 'no' without any additional information and without punctuation"""
     if args.no_prompt:
         instruction_prompt = ""
-    else:  
-        instruction_prompt = " ".join([ans_req, yes_or_no_req])
+    else:
+        if args.generation_model_name == 'google/flan-t5-base':
+            instruction_prompt = "Answer the question based only on the provided context in just one sentence."
+        else:
+            instruction_prompt = " ".join([ans_req, yes_or_no_req])
 
     
     if args.baseline:
+        # update the prompt for baseline, no context
+        ans_req = """Answer the question in just one sentence. Each answer must be as concise as possible, extremely succinct—limited to just several keywords—and should not repeat the question."""
+        instruction_prompt = " ".join([ans_req, yes_or_no_req])
         template = (
             f"{instruction_prompt}\n"
             "Question: {question}\n"
@@ -311,7 +318,11 @@ def main():
         if len(df) > 2500:
             df = df.sample(n=2500, replace=False, random_state=42)
         questions = df['Questions'].tolist()
-        ground_truths = df['Answers'].tolist()
+        if 'Answers' in df.columns:
+            ground_truths = df['Answers'].tolist()
+        else:
+            ground_truths = None
+
 
     elif args.annotation_data_format == "txt":
         # Load questions from file
@@ -355,3 +366,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# todo: semantic text splitter, temperature
