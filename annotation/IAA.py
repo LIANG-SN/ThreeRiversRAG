@@ -22,6 +22,13 @@ def preprocess_text(text):
     normalized_text = " ".join(tokens)
     return normalized_text
 
+def preprocess_quality(value):
+    value = int(value)
+    if value >= 3:
+        return 1
+    else:
+        return 0
+
 
 def cosine_similarity_pair(text1, text2):
     vectorizer = TfidfVectorizer()
@@ -57,6 +64,15 @@ def main():
 
     average_similarity = annotation_result['cosine_similarity'].mean()
     print("\nAverage Cosine Similarity:", average_similarity)
+
+    # convert all the answers to string in lowercase and strip the white spaces
+    annotation_result['Label 1'] = annotation_result['Quality 1'].apply(preprocess_quality)
+    annotation_result['Label 2'] = annotation_result['Quality 2'].apply(preprocess_quality)
+    kappa = cohen_kappa_score(annotation_result['Quality 1'], annotation_result['Quality 2'])
+    print("\nCohen's Kappa Score for the QA quality:", kappa)
+    kappa = cohen_kappa_score(annotation_result['Label 1'], annotation_result['Label 2'])
+    print("\nCohen's Kappa Score for the QA quality category:", kappa)
+
 
 
 if __name__ == "__main__":
