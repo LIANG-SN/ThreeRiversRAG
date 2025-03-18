@@ -10,7 +10,7 @@ Retrieval-Augmented Generation (RAG) is a powerful solution to the knowledge lim
 
 ### Steps to run
 
-1. Download the retrieval source data and place it in data folder.
+1. Download the [retrieval source data](https://drive.google.com/file/d/1lMoaDjDPWwakgPRESt_u__5rQUg55zz-/view?usp=sharing) and place it in data folder.
 2. Enter src folder: `cd src`.
 3. Install the relevant packages: `pip install -r requirements.txt`
 4. Run RAG pipeline
